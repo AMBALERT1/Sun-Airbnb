@@ -1,8 +1,8 @@
-# `<SUN AIRBNB>`
+# `SUN AIRBNB`
 
 ## Database Schema Design
 
-![database schema design of airbnb](</Users/amberjackson/Documents/AIRBNB database schema .png>)
+![database schema design of airbnb](<https://github.com/AMBALERT1/Sun-Airbnb/blob/main/AIRBNB%20database%20schema%20.png>)
 
 ## API Documentation
 
