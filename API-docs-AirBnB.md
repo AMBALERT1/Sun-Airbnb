@@ -2,7 +2,7 @@
 
 ## Database Schema Design
 
-![database schema design of airbnb](<https://github.com/AMBALERT1/Sun-Airbnb/blob/main/AIRBNB%20database%20schema%20.png>)
+![database schema design of airbnb](<Airbnb Datatbase Schema revised .png>)
 
 ## API Documentation
 
