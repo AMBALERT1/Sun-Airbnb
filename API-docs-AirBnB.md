@@ -246,8 +246,8 @@ Returns all the spots.
 
 * Require Authentication: false
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET
+  * URL: '/spots'
   * Body: none
 
 * Successful Response
@@ -391,8 +391,8 @@ Creates and returns a new spot.
 
 * Require Authentication: true
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: POST
+  * URL: '/spots'
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -598,7 +598,7 @@ Deletes an existing spot.
 * Require proper authorization: Spot must belong to the current user
 * Request
   * Method: DELETE
-  * URL: '/spots/{spot_id}
+  * URL: '/spots/:spots_id'
   * Body: none
 
 * Successful Response
@@ -633,8 +633,8 @@ Returns all the reviews written by the current user.
 
 * Require Authentication: true
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET
+  * URL: '/revieww/current-user'
   * Body: none
 
 * Successful Response
@@ -981,8 +981,8 @@ Return all the bookings that the current user has made.
 
 * Require Authentication: true
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET
+  * URL: '/bookings/current-user'
   * Body: none
 
 * Successful Response
@@ -1267,8 +1267,8 @@ Delete an existing booking.
 * Require proper authorization: Booking must belong to the current user or the
   Spot must belong to the current user
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: DELETE 
+  * URL: '/bookings/:bookingId
   * Body: none
 
 * Successful Response
@@ -1352,7 +1352,7 @@ Delete an existing image for a Review.
 * Require proper authorization: Review must belong to the current user
 * Request
   * Method: DELETE 
-  * URL: '/reviews/:review_id/images/{image_id}
+  * URL: '/spot-image/:imageId'
   * Body: none
 
 * Successful Response
