@@ -745,7 +745,7 @@ Create and return a new review for a spot specified by id.
 * Require Authentication: true
 * Request
   * Method: POST 
-  * URL: /spots/spotId/reviews
+  * URL: /spots/:spotId/reviews
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1095,7 +1095,7 @@ Create and return a new booking from a spot specified by id.
 * Require proper authorization: Spot must NOT belong to the current user
 * Request
   * Method: POST
-  * URL: /bookings/:spotId
+  * URL: /spots/:spotId/bookings
   * Body:
 
     ```json
