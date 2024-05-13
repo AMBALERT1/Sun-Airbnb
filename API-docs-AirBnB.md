@@ -247,7 +247,7 @@ Returns all the spots.
 * Require Authentication: false
 * Request
   * Method: GET
-  * URL: '/spots'
+  * URL: /spots
   * Body: none
 
 * Successful Response
@@ -287,7 +287,7 @@ Returns all the spots owned (created) by the current user.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: '/user/spots'
+  * URL: /users/:currentUserId/spots
   * Body: none
 
 * Successful Response
@@ -598,7 +598,7 @@ Deletes an existing spot.
 * Require proper authorization: Spot must belong to the current user
 * Request
   * Method: DELETE
-  * URL: '/spots/spotId'
+  * URL: /spots/:spotId
   * Body: none
 
 * Successful Response
@@ -634,7 +634,7 @@ Returns all the reviews written by the current user.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /review/user
+  * URL: /users/:currentUserId/reviews
   * Body: none
 
 * Successful Response
@@ -745,7 +745,7 @@ Create and return a new review for a spot specified by id.
 * Require Authentication: true
 * Request
   * Method: POST 
-  * URL: /spots/spotsId/reviews
+  * URL: /spots/spotId/reviews
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -880,7 +880,7 @@ Update and return an existing review.
 * Require proper authorization: Review must belong to the current user
 * Request
   * Method: PUT
-  * URL: /reviews/reviewId
+  * URL: /reviews/:reviewId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -946,7 +946,7 @@ Delete an existing review.
 * Require proper authorization: Review must belong to the current user
 * Request
   * Method: DELETE
-  * URL:/reviews/reviewId
+  * URL:/reviews/:reviewId
   * Body: none
 
 * Successful Response
@@ -1095,7 +1095,7 @@ Create and return a new booking from a spot specified by id.
 * Require proper authorization: Spot must NOT belong to the current user
 * Request
   * Method: POST
-  * URL: /bookings/spotId
+  * URL: /bookings/:spotId
   * Body:
 
     ```json
@@ -1317,7 +1317,7 @@ Delete an existing image for a Spot.
 * Require proper authorization: Spot must belong to the current user
 * Request
   * Method: DELETE
-  * URL:/bookings/:bookingid
+  * URL:/spots/:spotId/images/:imageId
   * Body: none
 
 * Successful Response
