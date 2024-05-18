@@ -6,8 +6,11 @@ const csurf = require('csurf');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 
+
 const { environment } = require('./config');
 const isProduction = environment === 'production';
+
+const apiRouter = require('./routes/api');
 
 
 const app = express();
@@ -43,5 +46,6 @@ app.use(
   );
 
   app.use(routes);
+
 
   module.exports = app;
