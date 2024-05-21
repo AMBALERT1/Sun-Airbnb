@@ -9,6 +9,20 @@ module.exports = (sequelize, DataTypes) => {
   };
   User.init(
     {
+    firstName : {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [1,50],
+      }
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [1,50],
+      }
+    },
     username: {
       type:DataTypes.STRING,
       allowNull: false,
@@ -45,8 +59,16 @@ module.exports = (sequelize, DataTypes) => {
       attributes: {
         exclude: ["hashedPassword", "email", "createdAt", "updatedAt"]
       }
-    }
-  }
+    },
+  scopes: {
+    currentUser: {
+      attributes: { exclude: ["hashedPassword"] },
+    },
+    loginUser: {
+      attributes: {},
+    },
+  },
+}
 );
   return User;
 };
