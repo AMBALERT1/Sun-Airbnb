@@ -20,7 +20,7 @@ module.exports = {
       name: 'Wonderful Spot',
       description: 'A beautiful spot in the hear of the city.',
       price: 100.00,
-      previewImage: ,
+      previewImage: images/image1.jpg,
       avgRating: 5,
       createdAt: new Date(),
       updatedAt: new Date()
