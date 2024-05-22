@@ -14,8 +14,8 @@ module.exports = {
       lng: -122.4194,
       name: 'Wonderful Spot',
       description: 'A beautiful spot in the hear of the city.',
-      price: 100.00
-      previewImage: ,
+      price: 100.00,
+      previewImage: images/Downstairs.jpeg,
       avgRating: 5.5,
       createdAt: new Date(),
       updatedAt: new Date()
