@@ -1,7 +1,7 @@
 'use strict';
 
 const images = [
-  'images/Downstairs.jepg',
+  'images/image.jpg',
 ];
 
 
@@ -20,7 +20,7 @@ module.exports = {
       name: 'Wonderful Spot',
       description: 'A beautiful spot in the hear of the city.',
       price: 100.00,
-      previewImage: images/Downstairs.jpeg,
+      previewImage: ,
       avgRating: 5,
       createdAt: new Date(),
       updatedAt: new Date()
