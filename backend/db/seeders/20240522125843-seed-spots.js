@@ -1,5 +1,10 @@
 'use strict';
 
+const images = [
+  'images/Downstairs.jepg',
+];
+
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
@@ -16,7 +21,7 @@ module.exports = {
       description: 'A beautiful spot in the hear of the city.',
       price: 100.00,
       previewImage: images/Downstairs.jpeg,
-      avgRating: 5.5,
+      avgRating: 5,
       createdAt: new Date(),
       updatedAt: new Date()
     },

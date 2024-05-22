@@ -16,7 +16,8 @@ module.exports = {
           model: 'User',
           key: 'id'
         },
-        onDelete: 'CASCADE'
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
       },
       address: {
         type: Sequelize.STRING,
@@ -76,7 +77,7 @@ module.exports = {
         type: Sequelize.FLOAT,
         allowNull: false,
         validate: {
-          min: 0,
+          min: 1,
           max: 5
         }
       },
