@@ -14,9 +14,12 @@ const { ValidationError } = require('sequelize');
 
 const apiRouter = require('./routes/api');
 
+const spotsRouter = require('./routes/spots');
 
 const app = express();
 const routes = require('./routes');
+
+app.use('/spots', spotsRouter);
 
 app.use(morgan('dev'));
 
