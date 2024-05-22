@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const { options } = require('../../routes');
 module.exports = (sequelize, DataTypes) => {
   class Spot extends Model {
     static associate(models) {
