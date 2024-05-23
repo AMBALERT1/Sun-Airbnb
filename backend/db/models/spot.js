@@ -6,7 +6,7 @@ const { options } = require('../../routes');
 module.exports = (sequelize, DataTypes) => {
   class Spot extends Model {
     static associate(models) {
-      // define association here
+      Spot.belongsTo(models.User, { foreignKey: 'ownerId' });
     }
   }
   Spot.init({
