@@ -15,8 +15,6 @@ module.exports = {
       name: 'Wonderful Spot',
       description: 'A beautiful spot in the heart of the city.',
       price: 100.00,
-      previewImage: 'images/image1.jpg',
-      avgRating: 5,
     },
     {
       ownerId: 2,
@@ -29,8 +27,6 @@ module.exports = {
       name: 'Wonder World',
       description: 'A beautiful spot located 10 mintues from the Houston Airport and 5 mintues from the mall.',
       price: 250.00,
-      previewImage: 'images/image2.jpg',
-      avgRating: 8,
     },
     {
       ownerId: 3,
@@ -43,13 +39,9 @@ module.exports = {
       name: 'Home Away From Home',
       description: 'Looking for a quick getway from the world, then look no further. This wonderful spot is located just a few blocks away from southpoint mall',
       price: 150.00,
-      previewImage: 'images/image3.jpg',
-      avgRating: 10,
     }
    ])
   },
-
-  async down (queryInterface, Sequelize) {
-   
+  async down (queryInterface, Sequelize) { 
   }
 };

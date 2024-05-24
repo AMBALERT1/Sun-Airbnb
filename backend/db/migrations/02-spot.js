@@ -74,20 +74,7 @@ module.exports = {
         allowNull: false,
         validate: {
           min: 0
-        }
-      },
-      previewImage: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      avgRating: {
-        type: Sequelize.FLOAT,
-        allowNull: false,
-        validate: {
-          min: 0,
-          max: 5
-        }
-      },
+        },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -96,7 +83,8 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    }, options);
+    }
+    },options);
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Spots');
