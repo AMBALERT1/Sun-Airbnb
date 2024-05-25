@@ -2,11 +2,11 @@
 const {
   Model
 } = require('sequelize');
+const { options } = require('../../routes');
 module.exports = (sequelize, DataTypes) => {
   class Spot extends Model {
     static associate(models) {
-      // define association here
-      
+      Spot.belongsTo(models.User, { foreignKey: 'ownerId' });
     }
   }
   Spot.init({
@@ -66,19 +66,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         min: 0 
       }
-    },
-    previewImage: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    avgRating: {
-      type: DataTypes.FLOAT,
-      allowNull: false,
-      validate: {
-        min: 0, 
-        max: 5   
-      }
-    }
+    }, 
   }, {
     sequelize,
     modelName: 'Spot',
