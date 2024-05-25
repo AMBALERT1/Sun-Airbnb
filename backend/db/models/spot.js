@@ -66,19 +66,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         min: 0 
       }
-    },
-    previewImage: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    avgRating: {
-      type: DataTypes.FLOAT,
-      allowNull: false,
-      validate: {
-        min: 0, 
-        max: 5   
-      }
-    }
+    }, 
   }, {
     sequelize,
     modelName: 'Spot',

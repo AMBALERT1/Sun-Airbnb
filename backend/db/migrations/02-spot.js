@@ -1,4 +1,13 @@
 'use strict';
+
+const { options } = require('../../routes');
+
+let options = {};
+options.tablename = 'Spots'
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;
+}
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -65,20 +74,7 @@ module.exports = {
         allowNull: false,
         validate: {
           min: 0
-        }
-      },
-      previewImage: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      avgRating: {
-        type: Sequelize.FLOAT,
-        allowNull: false,
-        validate: {
-          min: 0,
-          max: 5
-        }
-      },
+        },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -87,7 +83,8 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
+    }
+    },options);
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Spots');

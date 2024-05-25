@@ -9,6 +9,7 @@ router.get('/', async(req,res,next) => {
     } catch (error) {
         console.error('Error fetching spots:', error);
         res.status(500).json({ error: 'Internal server error'});
+        next(error)
     }
 }); 
 
