@@ -5,6 +5,26 @@ const { check, validationResult } = require('express-validator');
 
 const router = express.Router();
 
+router.get('/current', requireAuth, async (req, res) => {
+    const userId = req.user.Id; 
+
+    try {
+        //Locate all the spots where the ownerId matches the current user's ID
+        const spots = await Spot.findAll({
+            where : { ownerId: userId },
+            attributes: [
+                'id', 'ownerId', 'address' , 'city', 'state', 'country', 'lat', 'lng', 'name', 'description', 'price', 'createdAt','updatedAt'
+            ]
+        });
+
+        //Return the spots data 
+        return res.json({ Spots: spots });
+    } catch (error) {
+        console.error('Error fetching spot:' , error);
+        return res.status(500).json({ error: 'An error occurred while fetching the spots' })
+    }
+});
+
 const validateSpot = [
   check('address').exists({ checkFalsy: true }).withMessage('Address is required.'),
   check('city').exists({ checkFalsy: true }).withMessage('City is required.'),
