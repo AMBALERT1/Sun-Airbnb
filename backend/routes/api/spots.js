@@ -17,29 +17,37 @@ const validateSpot = [
   check('price').isFloat({ gt: 0 }).withMessage('Price must be greater than 0.'),
 ];
 
-router.post('/', requireAuth, validateSpot, async (req,res) => {
+router.post('/',requireAuth, validateSpot, async(req, res) => {
     const { user } = req;
-    const { address , city , state, country , lat, lng, name, description, price } = req.body;
-    const validationErrors = validationResult(req);
+    const { address , city , state, country, lat, lng, name , description, price } = req.body
 
+    //Validate request body 
+    const validationErrors = validationResult(req);
     if(!validationErrors.isEmpty()) {
-        return res.status(400).json({ errors: validationErrors.array() });
+        return res.status(400).json( {errors: validationErrors.array() });
     }
 
-    const newSpot = await Spot.create({
-        ownerId: user.id,
-        address,
-        city,
-        state,
-        country,
-        lat,
-        lng,
-        name,
-        description,
-        price,
-    });
+    try {
+        // Create new spot
+        const newSpot = await Spot.create({
+            ownerId: user.id,
+            address,
+            city,
+            state,
+            country,
+            lat,
+            lng,
+            name,
+            description,
+            price,
+        });
 
-    return res.json(newSpot);
-});
+        // Return newly created spot
+        return res.status(201).json(newSpot);
+    } catch (error) {
+        console.error('Error creating spot:', error);
+        return res.status(500).json({ error: 'An error occurred while creating the spot' });
+    }
+})
 
 module.exports = router;
