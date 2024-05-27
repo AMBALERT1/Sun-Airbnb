@@ -132,26 +132,27 @@ router.delete('/:id', requireAuth, (req, res) => {
     const spotId = req.params.id
     const userId = req.user.id;
 
-    //Locate the spot 
-    const spotIndex = spots.findIndex(spot => spot.id === spotId);
+    try {
+        //Find a Spot in the database 
+        const spot = await Spot.findByPk(spotId);
 
-    //If spot isn't found, return 404 
-    if(spotIndex === -1) {
-        return res.status(404).json({ error: 'Spot not found '});
+        //If the spot isn't found, then return 404
+        if(!spot) {
+            return res.status(404).json({ error: 'Spot not found '});
+        }
+        //if the user isn't the owner, return 403
+        if(spot.ownerId !== userId) {
+            return res.status(403).json({ error: ' Unauthorized to delete this spot '});
+        }
+
+        await spot.remove();
+
+        //return sucess message 
+        return res.json({ message: 'Spot deleted successfully' });
+    } catch (error) {
+        console.log('Error deleting spot:', error );
+        return res.status(500).json({ error: 'An error occurred while deleting the spot'})
     }
-
-    const spot = spots[spotIndex];
-
-    //If user isn't the owner, return 403 
-    if(spot.ownerId !== userId) {
-        return res.status(403).json({ error: 'Unauthorized to delete this spot'});
-    }
-
-    //Remove the spot from the array
-    spots.splice(spotIndex, 1);
-
-    //Return sucess message 
-    return res.json({ message : 'Spot deleted successfully'});
 });
 
 module.exports = router;
