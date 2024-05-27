@@ -1,9 +1,76 @@
 const express = require('express');
-const { Spot } = require('../../db/models');
+const { Spot,Spotimage } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
-const { check, validationResult } = require('express-validator');
+const { check, query, validationResult } = require('express-validator');
 
 const router = express.Router();
+
+const validateQueryParameters = [
+    query('page').optional().isInt({ min: 1 }).withMessage('Page must be a positive integer.'),
+    query('size').optional().isInt({ min: 1 }).withMessage('Size must be a positive integer.'),
+    query('minLat').optional().isFloat({ min: -90, max: 90 }).withMessage('Minimum latitude must be between -90 and 90.'),
+    query('maxLat').optional().isFloat({ min: -90, max: 90 }).withMessage('Maximum latitude must be between -90 and 90.'),
+    query('minLng').optional().isFloat({ min: -180, max: 180 }).withMessage('Minimum longitude must be between -180 and 180.'),
+    query('maxLng').optional().isFloat({ min: -180, max: 180 }).withMessage('Maximum longitude must be between -180 and 180.'),
+    query('minPrice').optional().isFloat({ min: 0 }).withMessage('Minimum price must be a positive number.'),
+    query('maxPrice').optional().isFloat({ min: 0 }).withMessage('Maximum price must be a positive number.')
+  ];
+
+  //Route to get all spots with query filters
+  router.get('/', validateQueryParameters, async(req,res) => {
+    const validationErrors = validationResult(req);
+    if(!validationErrors.isEmpty()) {
+        return res.status(400).json({ errors: validationErrors.array() });
+    }
+
+    let { page = 1, size = 10, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+
+    page = parseInt(page);
+    size = parseInt(size);
+
+    const where = {}
+
+if (minLat) where.lat = { [Op.gte]: parseFloat(minLat) };
+  if (maxLat) where.lat = { ...where.lat, [Op.lte]: parseFloat(maxLat) };
+  if (minLng) where.lng = { [Op.gte]: parseFloat(minLng) };
+  if (maxLng) where.lng = { ...where.lng, [Op.lte]: parseFloat(maxLng) };
+  if (minPrice) where.price = { [Op.gte]: parseFloat(minPrice) };
+  if (maxPrice) where.price = { ...where.price, [Op.lte]: parseFloat(maxPrice) };
+
+  try {
+    const { count, rows } = await Spot.findAndCountAll({
+      where,
+      include: [{
+        model: spotimage,
+        as: 'SpotImages',
+        attributes: ['url'],
+        where: { preview: true },
+        required: false
+      }],
+      limit: size,
+      offset: (page - 1) * size
+    });
+
+    const spots = rows.map(spot => {
+      const spotJson = spot.toJSON();
+      spotJson.previewImage = spotJson.SpotImages.length > 0 ? spotJson.SpotImages[0].url : null;
+      delete spotJson.SpotImages;
+      return spotJson;
+    });
+
+    return res.json({
+      spots,
+      page,
+      size,
+      totalSpots: count,
+      totalPages: Math.ceil(count / size)
+    });
+  } catch (error) {
+    console.error('Error fetching spots:', error);
+    return res.status(500).json({ error: 'An error occurred while fetching the spots' });
+  }
+
+  })
 
 router.get('/current', requireAuth, async (req, res) => {
     const userId = req.user.Id; 
