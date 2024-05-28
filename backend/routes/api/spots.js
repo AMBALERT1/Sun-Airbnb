@@ -1,9 +1,65 @@
 const express = require('express');
-const { Spot } = require('../../db/models');
+const { Spot, spotimage, user, review } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 const { check, validationResult } = require('express-validator');
 
 const router = express.Router();
+
+router.get('/:id', async (req, res) => {
+    const spotId = req.params.id;
+  
+    try {
+      //  checking to see if the spot exists
+      const spot = await Spot.findByPk(spotId, {
+        include: [
+          {
+            model: SpotImage,
+            attributes: ['id', 'url', 'preview']
+          },
+          {
+            model: User,
+            as: 'Owner',
+            attributes: ['id', 'firstName', 'lastName']
+          }
+        ]
+      });
+  
+      if (!spot) {
+        return res.status(404).json({ error: 'Spot not found' });
+      }
+  
+      // Calcuating the aggregate data for numReviews and avgStarRating
+      const reviews = await Review.findAll({ where: { spotId } });
+      const numReviews = reviews.length;
+      const avgStarRating = reviews.reduce((acc, review) => acc + review.stars, 0) / numReviews || 0;
+  
+      const spotDetails = {
+        id: spot.id,
+        ownerId: spot.ownerId,
+        address: spot.address,
+        city: spot.city,
+        state: spot.state,
+        country: spot.country,
+        lat: spot.lat,
+        lng: spot.lng,
+        name: spot.name,
+        description: spot.description,
+        price: spot.price,
+        createdAt: spot.createdAt,
+        updatedAt: spot.updatedAt,
+        numReviews,
+        avgStarRating,
+        SpotImages: spot.SpotImages,
+        Owner: spot.Owner
+      };
+  
+      return res.json(spotDetails);
+    } catch (error) {
+      console.error('Error fetching spot details:', error);
+      return res.status(500).json({ error: 'An error occurred while fetching spot details' });
+    }
+  });
+
 
 const validateSpot = [
   check('address').exists({ checkFalsy: true }).withMessage('Address is required.'),
