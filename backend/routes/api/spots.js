@@ -184,7 +184,7 @@ router.put('/:id', requireAuth, validateSpotUpdate, async (req, res) => {
 });
 
 
-router.delete('/:id', requireAuth, (req, res) => {
+router.delete('/:id', requireAuth, async (req, res) => {
     const spotId = req.params.id
     const userId = req.user.id;
 
@@ -201,7 +201,7 @@ router.delete('/:id', requireAuth, (req, res) => {
             return res.status(403).json({ error: ' Unauthorized to delete this spot '});
         }
 
-        await spot.remove();
+        await spot.remove()
 
         //return sucess message 
         return res.json({ message: 'Spot deleted successfully' });
