@@ -22,7 +22,7 @@ router.get('/', async(req,res) => {
             const spotJson = spot.toJSON();
             spotJson.previewImage = spotJson.SpotImages.length > 0 ? spot.Json.SpotImages[0].url: null; 
             delete spotJson.SpotImages;
-            return spotJson;
+            return {...spotJson, previewImage} ;
         });
 
         return res.json(spotsWithPreview);
