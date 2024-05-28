@@ -19,7 +19,7 @@ router.use(restoreUser);
 router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
 router.use('/spots', spotsRouter);
-router.user('/reviews', reviewsRouter);
+router.use('/reviews', reviewsRouter);
 router.use('/images', imagesRouter);
 
 router.post('/test', (req, res) => {
