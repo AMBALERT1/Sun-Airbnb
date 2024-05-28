@@ -6,11 +6,10 @@ module.exports = (sequelize, DataTypes) => {
   class SpotImage extends Model {
    
     static associate(models) {
-     SpotImage.hasMany(models.SpotImage, {
+     SpotImage.belongsTo(models.Spot, {
       foreignKey: 'spotId',
       as: 'SpotImages',
-      onDelete: 'CASCADE',
-      hooks: trueche
+      onDelete: 'CASCADE'
      })
     }
   }
